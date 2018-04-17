@@ -32,7 +32,8 @@ function authorize(code) {
 }
 
 function get_workplace_community(oauth) {
-  console.log(oauth);
+  console.log("Oauth: " + oauth);
+  console.log("Access token: " + oauth.access_token);
   let time = (new Date().getTime()/1000|0);
   let appsecret_proof = CryptoJS.HmacSHA256(
     oauth.access_token + '|' + time,
@@ -49,7 +50,7 @@ function get_workplace_community(oauth) {
     "qs": params,
     "method": "GET",
   }).then(function(response) {
-    console.log(response);
+    console.log("Response : " + response);
     return response.id;
   });
 }
