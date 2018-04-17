@@ -28,6 +28,7 @@ function authorize(code) {
     "uri": 'https://graph.facebook.com/v2.12/oauth/access_token',
     "qs": params,
     "method": "GET",
+    "json": true,
   });
 }
 
