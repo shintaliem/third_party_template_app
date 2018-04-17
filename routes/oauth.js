@@ -1,4 +1,4 @@
-var CryptoJS = require('crypto-js');
+var crypto = require('crypto');
 var express = require('express');
 var request = require('request-promise');
 var router = express.Router();
@@ -34,11 +34,11 @@ function authorize(code) {
 
 function get_workplace_community(oauth) {
   console.log("Access token: " + oauth.access_token);
-  let time = (new Date().getTime()/1000|0);
-  let appsecret_proof = CryptoJS.HmacSHA256(
-    oauth.access_token + '|' + time,
-    process.env.APP_SECRET
-  );
+  let time = Math.floor(Date.now() / 1000);
+  let appsecret_proof = crypto
+        .createHmac('sha256', process.env.APP_SECRET)
+        .update(accessToken + '|' + appsecretTime)
+        .digest('hex');
   console.log("App secret proof: " + appsecret_proof);
   let params = {
     "access_token" : oauth.access_token,
