@@ -37,7 +37,7 @@ function get_workplace_community(oauth) {
   let time = Math.floor(Date.now() / 1000);
   let appsecret_proof = crypto
         .createHmac('sha256', process.env.APP_SECRET)
-        .update(accessToken + '|' + appsecretTime)
+        .update(access_token + '|' + appsecretTime)
         .digest('hex');
   console.log("App secret proof: " + appsecret_proof);
   let params = {
