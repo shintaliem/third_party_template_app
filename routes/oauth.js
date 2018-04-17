@@ -1,3 +1,4 @@
+var CryptoJS = require('crypto-js');
 var express = require('express');
 var request = require('request-promise');
 var router = express.Router();
