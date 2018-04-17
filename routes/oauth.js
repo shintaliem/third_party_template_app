@@ -33,13 +33,13 @@ function authorize(code) {
 }
 
 function get_workplace_community(oauth) {
-  console.log("Oauth: " + oauth);
   console.log("Access token: " + oauth.access_token);
   let time = (new Date().getTime()/1000|0);
   let appsecret_proof = CryptoJS.HmacSHA256(
     oauth.access_token + '|' + time,
     process.env.APP_SECRET
   );
+  console.log("App secret proof: " + appsecret_proof);
   let params = {
     "access_token" : oauth.access_token,
     "appsecret_proof": appsecret_proof,
