@@ -42,7 +42,7 @@ function get_workplace_community(oauth) {
   console.log("App secret proof: " + appsecret_proof);
   let params = {
     "access_token" : oauth.access_token,
-    "appsecret_proof": appsecret_proof.toString(CryptoJS.enc.Hex),
+    "appsecret_proof": appsecret_proof,
     "appsecret_time": time
   }
 
