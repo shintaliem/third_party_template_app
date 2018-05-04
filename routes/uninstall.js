@@ -4,6 +4,7 @@ var request = require('request-promise');
 var router = express.Router();
 
 router.post('/', function(req, res, next) {
+  console.log(req.body);
   if (!req.body.signed_request) {
     return res
       .status(400)
