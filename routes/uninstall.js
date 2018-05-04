@@ -4,7 +4,6 @@ var request = require('request-promise');
 var router = express.Router();
 
 router.post('/', function(req, res, next) {
-  console.log(req.body);
   if (!req.body.signed_request) {
     return res
       .status(400)
@@ -22,23 +21,23 @@ router.post('/', function(req, res, next) {
       );
   }
   const [signature, payload] = parts.map(value => base64url.decode(value));
-  // const expectedSignature = crypto.createHmac('sha256', process.env.APP_SECRET)
-  //   .update(parts[1])
-  //   .digest('hex');
-  // console.log(payload);
-  // if (expectedSignature !== signature) {
-  //   return res
-  //     .status(400)
-  //     .render(
-  //       'error',
-  //       {
-  //         message: `Signed request does not match. Expected ${expectedSignature} but got ${signature}.`
-  //       },
-  //     );
-  // }
+  const expectedSignature = crypto.createHmac('sha256', process.env.APP_SECRET)
+    .update(parts[1])
+    .digest('hex');
+  if (expectedSignature !== signature) {
+    return res
+      .status(400)
+      .render(
+        'error',
+        {
+          message: `Signed request does not match. Expected ${expectedSignature} but got ${signature}.`
+        },
+      );
+  }
 
   // Signature matched, proceed with uninstall
   console.log(`Community ID: ${payload}`);
+  return res.status(200);
 });
 
 module.exports = router;
